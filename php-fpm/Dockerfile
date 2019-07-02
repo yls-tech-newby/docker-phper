@@ -14,20 +14,21 @@ ARG INSTALL_MONGO=false
 ARG INSTALL_MEMCACHED=false
 ARG INSTALL_PHPREDIS=false
 ARG INSTALL_OPCACHE=false
+ARG INSTALL_AMQP=false
 ARG PUID=1000
 ARG PGID=1000
 ARG USER=work
 ARG GROUP=work
 
 ENV BASE_DEPS \
-    autoconf 
+    autoconf \
     # dpkg-dev dpkg \
-    # g++ \
-    # make \
-    # gcc \
+    g++ \
+    make \
+    gcc \
     # file \
     # libc-dev \
-    # pkgconf \
+    pkgconf 
     # re2c 
 
 ENV TZ ${TZ}
@@ -35,7 +36,7 @@ ENV TZ ${TZ}
 COPY ./php.ini /usr/local/etc/php
 COPY ./www.conf /usr/local/etc/php-fpm.d/
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
-COPY ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+# COPY ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 #####################################
 # VIRTUAL PKGS:virtual pkgs build
 #####################################
@@ -58,6 +59,12 @@ RUN set -xe; \
     #     --with-jpeg-dir=/usr/include/ \
     # && docker-php-ext-install gd; \
     \
+    if [ ${INSTALL_AMQP} = true ]; then \
+        apk add --no-cache rabbitmq-c-dev \
+        && pecl install -o -f amqp \
+        && docker-php-ext-enable amqp \
+    ;fi; \
+    \
     if [ ${INSTALL_OPCACHE} = true ]; then \
         docker-php-ext-install opcache && \
         docker-php-ext-enable opcache \
@@ -77,6 +84,7 @@ RUN set -xe; \
         && docker-php-ext-enable mongodb \
     ;fi; \
     \
+
     apk del --no-network .build-deps \
     && docker-php-source delete \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/cache/*

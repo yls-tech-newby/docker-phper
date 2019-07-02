@@ -38,8 +38,8 @@ services:
                 - INSTALL_XDEBUG=false
                 - INSTALL_PHPREDIS=true
                 - INSTALL_MONGO=false
-                - INSTALL_COMPOSER=true
                 - INSTALL_OPCACHE=true
+                - INSTALL_AMQP=true
             dockerfile: Dockerfile
         volumes_from:
             - workspace
@@ -90,7 +90,6 @@ services:
         ports:
             - "3306:3306"
 
-
 #### Redis Container #########################################
 
     redis:
@@ -99,6 +98,18 @@ services:
             - redis:/data
         ports:
             - "6379:6379"
+
+# ### RabbitMQ Container ######################################
+
+    rabbitmq:
+        build: ./rabbitmq
+        ports:
+            - "5672:5672"
+            - "15671:15671"
+            - "15672:15672"
+        environment:
+            RABBITMQ_DEFAULT_USER: work
+            RABBITMQ_DEFAULT_PASS: work
 
 
 #### Volumes ###########################################
