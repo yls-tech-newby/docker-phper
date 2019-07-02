@@ -1,8 +1,3 @@
-#
-# Dockerfile for building PHP7 images
-# https://github.com/majikang/docker-lnmp.git
-#
-
 FROM php:7.3-fpm-alpine
 
 MAINTAINER majikang <majikang0621@gmail.com>

@@ -2,14 +2,6 @@ version: '2'
 
 services:
 
-#     applications:
-#         image: tianon/true
-#         volumes:
-# #           - ../:/var/www
-#             - ./www:/var/www
-
-#            - ../sample/:/var/www/sample
-
 ### Workspace Utilities Container ###
 # 构建工作环境配置
     workspace:
@@ -31,20 +23,6 @@ services:
         ports:
            - "2222:22"
         tty: true #bash shell
-# mysql
-# mysql:
-#     build: ./mysql
-#     ports:
-#         - "8306:3306"
-#     environment:
-#         - MYSQL_DATABASE=mysql
-#         - MYSQL_USER=developer
-#         - MYSQL_PASSWORD=root
-#         - MYSQL_ROOT_PASSWORD=123456
-#     volumes:
-#         - /opt/data/mysql:/var/lib/mysql
-#     restart: always
-
 
 ### PHP-FPM Container #######################################
 
@@ -113,7 +91,7 @@ services:
             - "3306:3306"
 
 
-# ### Redis Container #########################################
+#### Redis Container #########################################
 
     redis:
         build: ./redis
@@ -123,7 +101,7 @@ services:
             - "6379:6379"
 
 
-# ### Volumes ###########################################
+#### Volumes ###########################################
 
 volumes:
     mysql-data:

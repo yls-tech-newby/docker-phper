@@ -1,10 +1,5 @@
-#
-# Dockerfile for building MySQL images
-# 
-# https://github.com/addcn/docker-lnmp.git
-#
-
 FROM mysql:5.7
+
 MAINTAINER majikang <majikang0621@gmail.com>
 
 # COPY startup /etc/mysql/startup

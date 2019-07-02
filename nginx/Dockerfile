@@ -1,9 +1,3 @@
-#
-# Dockerfile for building Nginx images
-# 
-# https://github.com/majikang/docker-lnmp.git
-#
-
 FROM nginx:alpine
 
 MAINTAINER majikang <majikang0621@gmail.com>
