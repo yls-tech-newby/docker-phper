@@ -26,7 +26,6 @@ alias npm-global="npm list -g --depth 0"
 alias ra="reload"
 alias reload="source ~/.aliases && echo \"$COL_GREEN ==> Aliases Reloaded... $COL_RESET \n \""
 alias run="npm run"
-alias tree="xtree"
 
 # Laravel / PHP Alisases
 alias art="php artisan"
@@ -66,8 +65,4 @@ function mkd(){
 
 function md(){
     mkdir -p "$@" && cd "$@"
-}
-
-function xtree{
-    find ${1:-.} -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 }

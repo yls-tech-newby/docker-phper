@@ -14,14 +14,13 @@ services:
                 - PGID=1000
                 - USER=work
                 - GROUP=work
+                - USER_PWD=work
                 - INSTALL_COMPOSER=true
-        extra_hosts:
-            # IMPORTANT: Replace with your Docker Host IP (will be appended to /etc/hosts)
-            - "dockerhost:10.0.75.1"
         volumes:
             - ./www:/var/www
         ports:
            - "2222:22"
+        privileged: true
         tty: true #bash shell
 
 ### PHP-FPM Container #######################################
