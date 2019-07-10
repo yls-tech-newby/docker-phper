@@ -79,13 +79,13 @@ services:
     mysql:
         build:
             context: ./mysql
+            args:
+                - MYSQL_DATABASE=work
+                - MYSQL_USER=work
+                - MYSQL_PASSWORD=work@123!
+                - MYSQL_ROOT_PASSWORD=root
         volumes:
-            - mysql-data:/var/lib/mysql
-        environment:
-            MYSQL_DATABASE: work
-            MYSQL_USER: work
-            MYSQL_PASSWORD: work@123!
-            MYSQL_ROOT_PASSWORD: root
+            - mysql-data:/var/lib/mysql            
         ports:
             - "3306:3306"
 
