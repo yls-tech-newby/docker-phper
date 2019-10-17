@@ -42,7 +42,7 @@ RUN set -xe; \
 	    && php composer-setup.php \
 	    && mv composer.phar /usr/local/bin/composer \
 	    && rm -rf composer-setup.php \
-	    && composer config -g repo.packagist composer https://packagist.phpcomposer.com \
+	    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
 	    && composer selfupdate && composer --version \
 	;fi; \
 	\

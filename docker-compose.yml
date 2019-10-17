@@ -73,6 +73,7 @@ services:
             - "8430:443"
         links:
             - php-fpm
+        restart: always
 
 ### mysql Container ##################################
 

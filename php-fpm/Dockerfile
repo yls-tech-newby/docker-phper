@@ -43,14 +43,15 @@ COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN set -xe; \
     sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories; \
-    apk add --no-cache --virtual .build-deps \
+    apk update \
+    && apk add --no-cache --virtual .build-deps \
     $BASE_DEPS \
     tzdata \
     && cp /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone \
     \
     && addgroup -g $PGID -S $USER \
-    && adduser -u $PUID -D -S -G $USER $GROUP; \
+    && adduser -u $PUID -D -S -G $USER $GROUP \
     \
     # && docker-php-ext-configure gd \
     #     --with-gd \
@@ -59,6 +60,8 @@ RUN set -xe; \
     #     --with-jpeg-dir=/usr/include/ \
     # && docker-php-ext-install gd; \
     \
+    && docker-php-ext-install pdo_mysql mysqli \
+    && docker-php-ext-enable pdo_mysql mysqli;\
     if [ ${INSTALL_AMQP} = true ]; then \
         apk add --no-cache rabbitmq-c-dev \
         && pecl install -o -f amqp \
